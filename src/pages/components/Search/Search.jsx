@@ -28,7 +28,7 @@ const Search = () => {
 			<div className="flex justify-between gap-8">
 				<div className="flex">
 					<input
-						className="border border-gray-300 rounded-md p-2 w-full"
+						className="border border-gray-300 rounded-md p-2 w-full uppercase"
 						type="text"
 						id="registrationNumber"
 						value={registrationNumber}
