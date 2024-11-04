@@ -4,6 +4,7 @@ const useCarHooks = () => {
 	const [registrationNumber, setRegistrationNumber] = useState("");
 	const [vehicleData, setVehicleData] = useState(null);
 	const [disabled, setDisabled] = useState(true);
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const fetchVehicleData = async (e) => {
 		e.preventDefault();
@@ -16,12 +17,18 @@ const useCarHooks = () => {
 			setVehicleData(data);
 		} else {
 			console.error("Error fetching data:", response.status);
+			if (response.status === 500) {
+				setErrorMessage("Ingen data funnet");
+			} else {
+				setErrorMessage("Noe gikk galt. Prøv igjen senere.");
+			}
 		}
 	};
 
 	const handleInputChange = (event) => {
 		setRegistrationNumber(event.target.value);
 		setDisabled(event.target.value.length !== 7);
+		setErrorMessage("");
 	};
 
 	return {
@@ -30,6 +37,7 @@ const useCarHooks = () => {
 		disabled,
 		fetchVehicleData,
 		handleInputChange,
+		errorMessage,
 	};
 };
 

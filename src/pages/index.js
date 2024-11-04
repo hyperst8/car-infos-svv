@@ -22,6 +22,7 @@ export default function Home() {
 		disabled,
 		fetchVehicleData,
 		handleInputChange,
+		errorMessage,
 	} = useCarHooks();
 
 	return (
@@ -34,6 +35,7 @@ export default function Home() {
 				handleInputChange={handleInputChange}
 				fetchVehicleData={fetchVehicleData}
 				disabled={disabled}
+				errorMessage={errorMessage}
 			/>
 
 			{vehicleData && <Content data={vehicleData} />}

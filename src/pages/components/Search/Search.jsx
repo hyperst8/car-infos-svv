@@ -3,6 +3,7 @@ const Search = ({
 	handleInputChange,
 	fetchVehicleData,
 	disabled,
+	errorMessage,
 }) => {
 	return (
 		<form onSubmit={fetchVehicleData}>
@@ -25,6 +26,7 @@ const Search = ({
 					Hent kjøretøydata
 				</button>
 			</div>
+			{errorMessage && <span className="text-red-500">{errorMessage}</span>}
 		</form>
 	);
 };
