@@ -1,5 +1,8 @@
 import localFont from "next/font/local";
 import Search from "./components/Search/Search";
+import Content from "./components/Search/Content/Content";
+
+import useCarHooks from "@/hooks/useCarHooks";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -13,12 +16,27 @@ const geistMono = localFont({
 });
 
 export default function Home() {
+	const {
+		registrationNumber,
+		vehicleData,
+		disabled,
+		fetchVehicleData,
+		handleInputChange,
+	} = useCarHooks();
+
 	return (
 		<div
 			className={`${geistSans.variable} ${geistMono.variable} items-center justify-items-center min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
 		>
 			<h1 className="text-3xl font-bold mb-8">Søk etter kjøretøy</h1>
-			<Search />
+			<Search
+				registrationNumber={registrationNumber}
+				handleInputChange={handleInputChange}
+				fetchVehicleData={fetchVehicleData}
+				disabled={disabled}
+			/>
+
+			{vehicleData && <Content data={vehicleData} />}
 		</div>
 	);
 }

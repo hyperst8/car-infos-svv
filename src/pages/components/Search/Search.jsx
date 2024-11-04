@@ -1,9 +1,9 @@
-import useCarHooks from "@/hooks/useCarHooks";
-
-const Search = () => {
-	const { registrationNumber, disabled, fetchVehicleData, handleInputChange } =
-		useCarHooks();
-
+const Search = ({
+	registrationNumber,
+	handleInputChange,
+	fetchVehicleData,
+	disabled,
+}) => {
 	return (
 		<form onSubmit={fetchVehicleData}>
 			<div className="flex justify-between gap-8">
