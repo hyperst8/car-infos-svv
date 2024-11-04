@@ -1,10 +1,11 @@
 import React from "react";
+import Accordion from "../Accordion/Accordion";
 
 const Content = ({ data }) => {
 	console.log("from content", data);
 
 	// Destructuring the data object
-	const { registrering } = data;
+	const { registrering, periodiskKjoretoyKontroll } = data;
 
 	const regStatus =
 		registrering.registreringsstatus.kodeBeskrivelse.toLowerCase();
@@ -20,6 +21,15 @@ const Content = ({ data }) => {
 			>
 				<div>Kjøretøyet er {regStatus}</div>
 			</div>
+			<Accordion title="EU-kontroll">
+				<p className="font-bold">Sist godkjent</p>
+				<span>{periodiskKjoretoyKontroll.sistGodkjent}</span>
+				<p className="font-bold">Neste frist for godkjent EU-kontroll</p>
+				<span>{periodiskKjoretoyKontroll.kontrollfrist}</span>
+			</Accordion>
+			<Accordion title="Additional Vehicle Details">
+				<p>Here you can add additional details about the vehicle.</p>
+			</Accordion>
 		</div>
 	);
 };
