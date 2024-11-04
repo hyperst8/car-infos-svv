@@ -31,6 +31,7 @@ const useCarHooks = () => {
 		setRegistrationNumber(event.target.value);
 		setDisabled(event.target.value.length !== 7);
 		setErrorMessage("");
+		setVehicleData(null);
 	};
 
 	return {
