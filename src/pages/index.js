@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 import Search from "./components/Search/Search";
-import Content from "./components/Search/Content/Content";
+import Content from "./components/Content/Content";
 
 import useCarHooks from "@/hooks/useCarHooks";
 
