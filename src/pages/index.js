@@ -1,8 +1,8 @@
 import localFont from "next/font/local";
 import Search from "./components/Search/Search";
 import Content from "./components/Content/Content";
-
 import useCarHooks from "@/hooks/useCarHooks";
+import Head from "next/head";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -29,6 +29,9 @@ export default function Home() {
 		<div
 			className={`${geistSans.variable} ${geistMono.variable} items-center justify-items-center min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
 		>
+			<Head>
+				<title>Tribia kjøretøysopplysninger</title>
+			</Head>
 			<h1 className="text-3xl font-bold mb-8">Søk etter kjøretøy</h1>
 			<Search
 				registrationNumber={registrationNumber}
