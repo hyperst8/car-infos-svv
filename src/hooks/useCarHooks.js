@@ -14,7 +14,9 @@ const useCarHooks = () => {
 		);
 		if (response.ok) {
 			const data = await response.json();
-			setVehicleData(data);
+			if (data) {
+				setVehicleData(data.kjoretoydataListe[0]);
+			}
 		} else {
 			console.error("Error fetching data:", response.status);
 			if (response.status === 500) {
