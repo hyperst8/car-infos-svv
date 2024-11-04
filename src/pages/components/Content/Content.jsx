@@ -2,27 +2,25 @@ import React from "react";
 import Accordion from "../Accordion/Accordion";
 
 const Content = ({ data }) => {
-	console.log("from content", data);
+	if (!data) return <div>No data available</div>;
 
-	// Destructuring the data object
+	// Destructuring with default values
 	const {
-		registrering,
-		periodiskKjoretoyKontroll,
-		kjoretoyId,
-		godkjenning,
-		forstegangsregistrering,
+		registrering = {},
+		periodiskKjoretoyKontroll = {},
+		kjoretoyId = {},
+		godkjenning = {},
+		forstegangsregistrering = {},
 	} = data;
 
 	const regStatus =
-		registrering.registreringsstatus.kodeBeskrivelse.toLowerCase();
-
-	const forsteRegNorge = forstegangsregistrering.registrertForstegangNorgeDato;
-
-	const forsteReg = godkjenning.forstegangsGodkjenning.forstegangRegistrertDato;
-
-	const tekniskGodkjenning = godkjenning.tekniskGodkjenning;
-
-	const tekniskeData = tekniskGodkjenning.tekniskeData;
+		registrering?.registreringsstatus?.kodeBeskrivelse?.toLowerCase() || "N/A";
+	const forsteRegNorge =
+		forstegangsregistrering?.registrertForstegangNorgeDato || "N/A";
+	const forsteReg =
+		godkjenning?.forstegangsGodkjenning?.forstegangRegistrertDato || "N/A";
+	const tekniskGodkjenning = godkjenning?.tekniskGodkjenning || {};
+	const tekniskeData = tekniskGodkjenning?.tekniskeData || {};
 
 	return (
 		<div className="my-8">
@@ -36,46 +34,51 @@ const Content = ({ data }) => {
 				<div>Kjøretøyet er {regStatus}</div>
 			</div>
 			<h2 className="uppercase font-bold text-center text-2xl mb-8">
-				{kjoretoyId.kjennemerke} {tekniskeData.generelt.merke[0].merke}{" "}
-				{tekniskeData.generelt.handelsbetegnelse[0]}
+				{kjoretoyId?.kjennemerke || "Unknown"}{" "}
+				{tekniskeData?.generelt?.merke?.[0]?.merke || "Unknown"}{" "}
+				{tekniskeData?.generelt?.handelsbetegnelse?.[0] || "Unknown"}
 			</h2>
 			<Accordion title="EU-kontroll">
 				<p className="font-bold">Sist godkjent</p>
-				<span>{periodiskKjoretoyKontroll.sistGodkjent}</span>
-				{periodiskKjoretoyKontroll.kontrollfrist && (
-					<p className="font-bold">Neste frist for godkjent EU-kontroll</p>
+				<span>{periodiskKjoretoyKontroll?.sistGodkjent || "N/A"}</span>
+				{periodiskKjoretoyKontroll?.kontrollfrist && (
+					<>
+						<p className="font-bold">Neste frist for godkjent EU-kontroll</p>
+						<span>{periodiskKjoretoyKontroll.kontrollfrist}</span>
+					</>
 				)}
-				<span>{periodiskKjoretoyKontroll.kontrollfrist}</span>
 			</Accordion>
 			<Accordion title="Registreringsdata">
 				<p className="font-bold">Kjøretøyets status</p>
 				<span>{regStatus}</span>
 				<p className="font-bold">Registreringsnummer</p>
-				<span>{kjoretoyId.kjennemerke}</span>
+				<span>{kjoretoyId?.kjennemerke || "N/A"}</span>
 				<p className="font-bold">Understellsnummer</p>
-				<span>{kjoretoyId.understellsnummer}</span>
+				<span>{kjoretoyId?.understellsnummer || "N/A"}</span>
 				<p className="font-bold">Kjøretøygruppe</p>
-				<span>{tekniskGodkjenning.kjoretoyklassifisering.beskrivelse}</span>
+				<span>
+					{tekniskGodkjenning?.kjoretoyklassifisering?.beskrivelse || "N/A"}
+				</span>
 				<p className="font-bold">Første gang registrert</p>
 				<span>{forsteReg}</span>
 				<p className="font-bold">Første gang registrert i Norge</p>
 				<span>{forsteRegNorge}</span>
 				<p className="font-bold">Antall seter</p>
-				<span>{tekniskeData.persontall.sitteplasserTotalt}</span>
+				<span>{tekniskeData?.persontall?.sitteplasserTotalt || "N/A"}</span>
 			</Accordion>
 			<Accordion title="Tekniske data">
 				<p className="font-bold">Egen vekt</p>
-				<span>{tekniskeData.vekter.egenvekt} kg</span>
+				<span>{tekniskeData?.vekter?.egenvekt || "N/A"} kg</span>
 				<p className="font-bold">Nyttelast</p>
-				<span>{tekniskeData.vekter.nyttelast} kg</span>
+				<span>{tekniskeData?.vekter?.nyttelast || "N/A"} kg</span>
 				<p className="font-bold">Tillatt total vekt</p>
-				<span>{tekniskeData.vekter.tillattTotalvekt} kg</span>
+				<span>{tekniskeData?.vekter?.tillattTotalvekt || "N/A"} kg</span>
 				<p className="font-bold">Bredde</p>
-				<span>{tekniskeData.dimensjoner.bredde / 10} cm</span>
+				<span>{(tekniskeData?.dimensjoner?.bredde || 0) / 10} cm</span>
 				<p className="font-bold">Høyde</p>
-				<span>{tekniskeData.dimensjoner.hoyde / 10} cm</span>
+				<span>{(tekniskeData?.dimensjoner?.hoyde || 0) / 10} cm</span>
 				<p className="font-bold">Lengde</p>
-				<span>{tekniskeData.dimensjoner.lengde / 10} cm</span>
+				<span>{(tekniskeData?.dimensjoner?.lengde || 0) / 10} cm</span>
 			</Accordion>
 		</div>
 	);
